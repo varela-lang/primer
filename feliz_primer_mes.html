@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Feliz Primer Mes ❤️</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        :root {
+            --bg-color: #050510;
+            --text-color: #ffffff;
+            --rose-glow: rgba(255, 42, 85, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        body {
+
+            background:
+                radial-gradient(
+                    ellipse at bottom,
+                    #1b2735 0%,
+                    #090a0f 100%
+                );
+
+            color: var(--text-color);
+
+            font-family: 'Playfair Display', serif;
+
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        .script-font {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* =====================================================
+           ESTRELLAS
+        ===================================================== */
+
+        #stars-container {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 0;
+
+            pointer-events: none;
+        }
+
+        .star {
+
+            position: absolute;
+
+            background: white;
+
+            border-radius: 50%;
+
+            animation: twinkle linear infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+
+                opacity: 0.2;
+
+                transform: scale(0.8);
+            }
+
+            50% {
+
+                opacity: 1;
+
+                transform: scale(1.2);
+
+                box-shadow:
+                    0 0 8px #fff;
+            }
+        }
+
+        /* =====================================================
+           CORAZONES FLOTANDO
+        ===================================================== */
+
+        #hearts-container {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 1;
+
+            pointer-events: none;
+        }
+
+        .heart-float {
+
+            position: fixed;
+
+            bottom: -10vh;
+
+            color: rgba(255, 255, 255, 0.15);
+
+            pointer-events: none;
+
+            animation:
+                floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+
+            0% {
+
+                transform:
+                    translateY(0)
+                    rotate(0deg)
+                    scale(0.8);
+
+                opacity: 0;
+            }
+
+            20% {
+
+                opacity: 0.3;
+            }
+
+            80% {
+
+                opacity: 0.3;
+            }
+
+            100% {
+
+                transform:
+                    translateY(-120vh)
+                    rotate(360deg)
+                    scale(1.5);
+
+                opacity: 0;
+            }
+        }
+
+        /* =====================================================
+           ROSA
+        ===================================================== */
+
+        .rose-container {
+
+            position: relative;
+
+            z-index: 10;
+
+            width: 100%;
+
+            max-width: 500px;
+
+            aspect-ratio: 1 / 1;
+
+            margin: 0 auto;
+
+            filter:
+                drop-shadow(
+                    0 0 20px
+                    var(--rose-glow)
+                );
+
+            animation:
+                breathe 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes breathe {
+
+            0% {
+
+                filter:
+                    drop-shadow(
+                        0 0 20px
+                        rgba(255, 42, 85, 0.3)
+                    );
+
+                transform: scale(1);
+            }
+
+            100% {
+
+                filter:
+                    drop-shadow(
+                        0 0 40px
+                        rgba(255, 42, 85, 0.7)
+                    );
+
+                transform: scale(1.02);
+            }
+        }
+
+        /* =====================================================
+           PÉTALOS
+        ===================================================== */
+
+        .petal {
+
+            transition:
+                all 0.4s
+                cubic-bezier(
+                    0.25,
+                    1,
+                    0.5,
+                    1
+                );
+
+            cursor: pointer;
+
+            transform-origin: center;
+        }
+
+        .petal:hover {
+
+            filter:
+                brightness(1.25)
+                drop-shadow(
+                    0 0 15px
+                    #ff8fa3
+                );
+
+            transform: scale(1.04);
+
+            stroke: #ffffff;
+
+            stroke-width: 2px;
+        }
+
+        /* Pétalo descubierto */
+
+        .petal.discovered {
+
+            filter:
+                brightness(1.3)
+                drop-shadow(
+                    0 0 20px
+                    rgba(255, 105, 135, 0.9)
+                );
+        }
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        #poem-modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 50;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(0, 0, 0, 0.65);
+
+            backdrop-filter:
+                blur(10px);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition:
+                opacity 0.4s ease,
+                visibility 0.4s ease;
+        }
+
+        #poem-modal.active {
+
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+        .glass-card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.10),
+                    rgba(255, 255, 255, 0.03)
+                );
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.2);
+
+            box-shadow:
+                0 8px 40px
+                rgba(0, 0, 0, 0.6);
+
+            border-radius: 24px;
+
+            padding: 2.5rem;
+
+            max-width: 90%;
+
+            width: 440px;
+
+            max-height: 85vh;
+
+            overflow-y: auto;
+
+            transform:
+                translateY(30px)
+                scale(0.92);
+
+            transition:
+                all 0.5s
+                cubic-bezier(
+                    0.4,
+                    0,
+                    0.2,
+                    1
+                );
+
+            position: relative;
+        }
+
+        #poem-modal.active .glass-card {
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        /* =====================================================
+           ANIMACIÓN DEL POEMA
+        ===================================================== */
+
+        .poem-animation {
+
+            animation:
+                poemAppear 0.8s
+                ease forwards;
+        }
+
+        @keyframes poemAppear {
+
+            0% {
+
+                opacity: 0;
+
+                transform:
+                    translateY(20px)
+                    scale(0.95);
+            }
+
+            100% {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+        /* =====================================================
+           BOTÓN CERRAR
+        ===================================================== */
+
+        .close-btn {
+
+            position: absolute;
+
+            top: 15px;
+
+            right: 15px;
+
+            background: none;
+
+            border: none;
+
+            color: #ffffff;
+
+            font-size: 28px;
+
+            cursor: pointer;
+
+            opacity: 0.7;
+
+            transition:
+                all 0.3s;
+        }
+
+        .close-btn:hover {
+
+            opacity: 1;
+
+            transform:
+                rotate(90deg)
+                scale(1.1);
+        }
+
+        /* =====================================================
+           CORAZÓN AL DESCUBRIR
+        ===================================================== */
+
+        .love-burst {
+
+            position: fixed;
+
+            pointer-events: none;
+
+            z-index: 100;
+
+            font-size: 25px;
+
+            animation:
+                burst 1s ease-out forwards;
+        }
+
+        @keyframes burst {
+
+            0% {
+
+                opacity: 1;
+
+                transform:
+                    translate(0, 0)
+                    scale(0.5);
+            }
+
+            100% {
+
+                opacity: 0;
+
+                transform:
+                    translate(
+                        var(--x),
+                        var(--y)
+                    )
+                    scale(1.5);
+            }
+        }
+
+        /* =====================================================
+           MENSAJE FINAL
+        ===================================================== */
+
+        #final-message {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 80;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 25px;
+
+            background:
+                rgba(0, 0, 0, 0.75);
+
+            backdrop-filter:
+                blur(15px);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transition:
+                all 0.7s ease;
+        }
+
+        #final-message.active {
+
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+        .final-card {
+
+            max-width: 600px;
+
+            width: 100%;
+
+            text-align: center;
+
+            padding: 45px 30px;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 50, 90, 0.18),
+                    rgba(255, 255, 255, 0.05)
+                );
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.2);
+
+            box-shadow:
+                0 0 60px
+                rgba(255, 42, 85, 0.35);
+
+            animation:
+                finalAppear 1s ease;
+        }
+
+        @keyframes finalAppear {
+
+            0% {
+
+                transform:
+                    scale(0.7)
+                    translateY(40px);
+
+                opacity: 0;
+            }
+
+            100% {
+
+                transform:
+                    scale(1)
+                    translateY(0);
+
+                opacity: 1;
+            }
+        }
+
+        .final-heart {
+
+            font-size: 70px;
+
+            animation:
+                heartBeat 1.5s infinite;
+        }
+
+        @keyframes heartBeat {
+
+            0%,
+            100% {
+
+                transform: scale(1);
+            }
+
+            50% {
+
+                transform: scale(1.15);
+            }
+        }
+
+        /* =====================================================
+           SCROLLBAR
+        ===================================================== */
+
+        ::-webkit-scrollbar {
+
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background:
+                rgba(255, 255, 255, 0.3);
+
+            border-radius: 10px;
+        }
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 640px) {
+
+            .rose-container {
+
+                max-width: 380px;
+            }
+
+            .glass-card {
+
+                padding: 2rem 1.5rem;
+            }
+
+            #poem-text {
+
+                font-size: 1.2rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="flex flex-col items-center justify-center relative">
+
+    <!-- =====================================================
+         FONDOS
+    ===================================================== -->
+
+    <div id="stars-container"></div>
+
+    <div id="hearts-container"></div>
+
+
+    <!-- =====================================================
+         ENCABEZADO
+    ===================================================== -->
+
+    <header
+        class="
+            relative
+            z-20
+            text-center
+            mt-12
+            mb-4
+            px-4
+            w-full
+            max-w-3xl
+        "
+    >
+
+        <h1
+            class="
+                text-5xl
+                md:text-7xl
+                font-bold
+                text-white
+                tracking-wide
+                mb-2
+            "
+        >
+            Feliz Primer Mes
+        </h1>
+
+        <h2
+            class="
+                text-3xl
+                md:text-4xl
+                text-white
+                opacity-90
+                mb-6
+            "
+        >
+            Mi Amor ❤️
+        </h2>
+
+        <div
+            class="
+                h-[1px]
+                w-32
+                bg-white/30
+                mx-auto
+                rounded-full
+                mb-6
+            "
+        ></div>
+
+        <p
+            class="
+                text-white/80
+                text-lg
+                md:text-xl
+                italic
+                px-6
+                max-w-md
+                mx-auto
+            "
+        >
+            "Toca cada pétalo de esta rosa
+            y descubre un pedacito
+            de lo que siento por ti..."
+        </p>
+
+        <!-- CONTADOR -->
+
+        <div
+            class="
+                mt-6
+                text-white/60
+                text-sm
+                tracking-widest
+                uppercase
+            "
+        >
+
+            Pétalos descubiertos:
+
+            <span
+                id="counter"
+                class="text-white font-bold"
+            >
+                0
+            </span>
+
+            / 11
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         ROSA
+    ===================================================== -->
+
+    <main
+        class="
+            w-full
+            flex-grow
+            flex
+            items-center
+            justify-center
+            p-4
+            z-20
+        "
+    >
+
+        <div class="rose-container">
+
+            <svg
+                viewBox="-50 -50 300 300"
+                style="overflow: visible;"
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-full h-full"
+            >
+
+                <defs>
+
+                    <!-- HOJAS -->
+
+                    <linearGradient
+                        id="leafGrad1"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#14452F"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#092617"
+                        />
+
+                    </linearGradient>
+
+
+                    <linearGradient
+                        id="leafGrad2"
+                        x1="100%"
+                        y1="0%"
+                        x2="0%"
+                        y2="100%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#1B593C"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#0A2E1C"
+                        />
+
+                    </linearGradient>
+
+
+                    <!-- PÉTALOS -->
+
+                    <radialGradient
+                        id="petalOuter"
+                        cx="30%"
+                        cy="30%"
+                        r="70%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#FF1A4A"
+                        />
+
+                        <stop
+                            offset="70%"
+                            stop-color="#B30026"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#660012"
+                        />
+
+                    </radialGradient>
+
+
+                    <radialGradient
+                        id="petalMid"
+                        cx="40%"
+                        cy="40%"
+                        r="60%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#FF3366"
+                        />
+
+                        <stop
+                            offset="60%"
+                            stop-color="#CC0033"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#80001A"
+                        />
+
+                    </radialGradient>
+
+
+                    <radialGradient
+                        id="petalInner"
+                        cx="50%"
+                        cy="50%"
+                        r="50%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#FF4D79"
+                        />
+
+                        <stop
+                            offset="50%"
+                            stop-color="#E60039"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#990026"
+                        />
+
+                    </radialGradient>
+
+
+                    <filter
+                        id="glow"
+                        x="-20%"
+                        y="-20%"
+                        width="140%"
+                        height="140%"
+                    >
+
+                        <feGaussianBlur
+                            stdDeviation="5"
+                            result="blur"
+                        />
+
+                        <feComposite
+                            in="SourceGraphic"
+                            in2="blur"
+                            operator="over"
+                        />
+
+                    </filter>
+
+                </defs>
+
+
+                <!-- =================================================
+                     HOJAS
+                ================================================= -->
+
+                <path
+                    d="M100,100 C60,40 -20,20 -10,80 C-5,110 40,120 100,100 Z"
+                    fill="url(#leafGrad1)"
+                />
+
+                <path
+                    d="M100,100 C140,160 220,180 210,120 C205,90 160,80 100,100 Z"
+                    fill="url(#leafGrad2)"
+                />
+
+                <path
+                    d="M100,100 C160,40 240,60 210,10 C180,-10 120,40 100,100 Z"
+                    fill="url(#leafGrad1)"
+                />
+
+                <path
+                    d="M100,100 C40,160 -40,140 -10,190 C20,210 80,160 100,100 Z"
+                    fill="url(#leafGrad2)"
+                />
+
+
+                <!-- =================================================
+                     PÉTALOS EXTERNOS
+                ================================================= -->
+
+                <g filter="url(#glow)">
+
+                    <path
+                        class="petal"
+                        data-index="0"
+                        d="M100,100 C20,20 -10,120 50,170 C80,190 120,160 100,100 Z"
+                        fill="url(#petalOuter)"
+                    />
+
+                    <path
+                        class="petal"
+                        data-index="1"
+                        d="M100,100 C180,20 210,120 150,170 C120,190 80,160 100,100 Z"
+                        fill="url(#petalOuter)"
+                    />
+
+                    <path
+                        class="petal"
+                        data-index="2"
+                        d="M100,100 C20,180 120,210 170,150 C190,120 160,80 100,100 Z"
+                        fill="url(#petalOuter)"
+                    />
+
+                    <path
+                        class="petal"
+                        data-index="3"
+                        d="M100,100 C180,180 80,-10 30,50 C10,80 40,120 100,100 Z"
+                        fill="url(#petalOuter)"
+                    />
+
+                </g>
+
+
+                <!-- =================================================
+                     PÉTALOS MEDIOS
+                ================================================= -->
+
+                <g>
+
+                    <path
+                        class="petal"
+                        data-index="4"
+                        d="M100,100 C50,50 30,130 80,150 C100,160 110,120 100,100 Z"
+                        fill="url(#petalMid)"
+                    />
+
+                    <path
+                        class="petal"
+                        data-index="5"
+                        d="M100,100 C150,50 170,130 120,150 C100,160 90,120 100,100 Z"
+                        fill="url(#petalMid)"
+                    />
+
+                    <path
+                        class="petal"
+                        data-index="6"
+                        d="M100,100 C50,150 130,170 150,120 C160,100 120,90 100,100 Z"
+                        fill="url(#petalMid)"
+                    />
+
+                    <path
+                        class="petal"
+                        data-index="7"
+                        d="M100,100 C150,150 70,30 50,80 C40,100 80,110 100,100 Z"
+                        fill="url(#petalMid)"
+                    />
+
+                </g>
+
+
+                <!-- =================================================
+                     PÉTALOS INTERNOS
+                ================================================= -->
+
+                <g>
+
+                    <path
+                        class="petal"
+                        data-index="8"
+                        d="M100,100 C70,70 60,110 90,120 C110,125 110,100 100,100 Z"
+                        fill="url(#petalInner)"
+                    />
+
+                    <path
+                        class="petal"
+                        data-index="9"
+                        d="M100,100 C130,70 140,110 110,120 C90,125 90,100 100,100 Z"
+                        fill="url(#petalInner)"
+                    />
+
+                    <!-- CENTRO -->
+
+                    <circle
+                        class="petal"
+                        data-index="10"
+                        cx="100"
+                        cy="100"
+                        r="12"
+                        fill="#4D0013"
+                        stroke="#80001A"
+                        stroke-width="2"
+                    />
+
+                </g>
+
+            </svg>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer
+        class="
+            relative
+            z-20
+            mb-6
+            mt-4
+            text-center
+        "
+    >
+
+        <p
+            class="
+                text-white/40
+                text-sm
+                tracking-widest
+                uppercase
+            "
+        >
+            Diseñado con amor ❤️
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         MODAL DEL POEMA
+    ===================================================== -->
+
+    <div id="poem-modal">
+
+        <div
+            class="
+                glass-card
+                flex
+                flex-col
+                items-center
+                text-center
+            "
+        >
+
+            <button
+                class="close-btn"
+                onclick="closeModal()"
+                aria-label="Cerrar"
+            >
+                &times;
+            </button>
+
+
+            <!-- CORAZÓN -->
+
+            <div
+                class="
+                    mb-5
+                    text-white
+                    opacity-80
+                    text-4xl
+                "
+            >
+                ❤️
+            </div>
+
+
+            <h3
+                class="
+                    script-font
+                    text-4xl
+                    text-white
+                    mb-4
+                "
+            >
+                Para Ti
+            </h3>
+
+
+            <div
+                class="
+                    w-full
+                    h-px
+                    bg-white/20
+                    mb-6
+                "
+            ></div>
+
+
+            <!-- POEMA -->
+
+            <p
+                id="poem-text"
+                class="
+                    text-white
+                    text-xl
+                    md:text-2xl
+                    leading-relaxed
+                    font-light
+                    italic
+                    whitespace-pre-line
+                "
+            ></p>
+
+
+            <div
+                class="
+                    w-full
+                    h-px
+                    bg-white/20
+                    mt-6
+                    mb-6
+                "
+            ></div>
+
+
+            <p
+                class="
+                    script-font
+                    text-xl
+                    text-white/80
+                "
+            >
+                Con amor, para ti ❤️
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MENSAJE FINAL
+    ===================================================== -->
+
+    <div id="final-message">
+
+        <div class="final-card">
+
+            <div class="final-heart">
+                ❤️
+            </div>
+
+            <h2
+                class="
+                    script-font
+                    text-5xl
+                    md:text-6xl
+                    text-white
+                    mt-4
+                    mb-6
+                "
+            >
+                Encontraste todos
+            </h2>
+
+            <p
+                class="
+                    text-white/80
+                    text-lg
+                    md:text-xl
+                    leading-relaxed
+                    mb-6
+                "
+            >
+                Has descubierto cada pétalo
+                de esta pequeña rosa...
+            </p>
+
+            <p
+                class="
+                    script-font
+                    text-3xl
+                    text-white
+                    mb-6
+                "
+            >
+                Pero hay algo que ningún
+                pétalo puede expresar.
+            </p>
+
+            <p
+                class="
+                    text-white
+                    text-lg
+                    leading-relaxed
+                "
+            >
+                Gracias por este primer mes,
+                por cada sonrisa, cada momento,
+                cada abrazo y cada recuerdo.
+                <br><br>
+
+                Espero que este sea solamente
+                el primero de muchos meses
+                juntos. ❤️
+            </p>
+
+            <div
+                class="
+                    mt-8
+                    text-2xl
+                "
+            >
+                🌹 ✨ ❤️ ✨ 🌹
+            </div>
+
+            <p
+                class="
+                    script-font
+                    text-3xl
+                    text-white
+                    mt-6
+                "
+            >
+                Feliz primer mes, mi amor.
+            </p>
+
+            <button
+                onclick="closeFinalMessage()"
+                class="
+                    mt-8
+                    px-6
+                    py-3
+                    rounded-full
+                    bg-white/10
+                    border
+                    border-white/20
+                    text-white
+                    hover:bg-white/20
+                    transition
+                "
+            >
+                Volver a la rosa ❤️
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        /* =====================================================
+           POEMAS
+        ===================================================== */
+
+        const poems = [
+
+            `Un mes parece un suspiro,
+pero a tu lado es la eternidad.
+Has traído a mi mundo entero
+la más hermosa felicidad.`,
+
+            `En tus ojos vi mi destino,
+en tu sonrisa mi hogar.
+Feliz primer mes, mi vida,
+nunca te dejaré de amar.`,
+
+            `Treinta días de poesía,
+de abrazos y dulce ilusión.
+Eres tú la melodía
+que alegra mi corazón.`,
+
+            `Como esta rosa que brilla,
+nuestro amor empieza a florecer.
+Eres mi luz, mi maravilla,
+mi forma más pura de querer.`,
+
+            `Si el tiempo se mide en besos,
+este mes ha sido un tesoro.
+Por ti yo pierdo los sesos,
+eres todo lo que adoro.`,
+
+            `Cada pétalo es un "te quiero",
+cada estrella es para ti.
+En este primer mes te confieso:
+me haces inmensamente feliz.`,
+
+            `Llegaste como un destello,
+iluminando todo mi ser.
+No hay nada en el mundo más bello
+que tenerte y aprenderte a querer.`,
+
+            `Brindo por nuestro pasado,
+nuestro presente y lo que vendrá.
+Estar siempre a tu lado
+es mi única verdad.`,
+
+            `Si pudiera guardar un instante,
+guardaría uno junto a ti.
+Porque desde que llegaste,
+mi mundo aprendió a sonreír.`,
+
+            `No sé qué traerá el futuro,
+pero hay algo que sé de verdad:
+quiero seguir escribiendo contigo
+esta hermosa historia de amor.`,
+
+            `Un mes contigo,
+y ya tengo mil recuerdos.
+Si esto apenas comienza,
+imagina todo lo que nos queda por vivir.`
+        ];
+
+
+        /* =====================================================
+           VARIABLES
+        ===================================================== */
+
+        const modal =
+            document.getElementById(
+                'poem-modal'
+            );
+
+        const poemText =
+            document.getElementById(
+                'poem-text'
+            );
+
+        const counter =
+            document.getElementById(
+                'counter'
+            );
+
+        const finalMessage =
+            document.getElementById(
+                'final-message'
+            );
+
+        const petals =
+            document.querySelectorAll(
+                '.petal'
+            );
+
+        let discoveredPetals =
+            new Set();
+
+
+        /* =====================================================
+           ESTRELLAS
+        ===================================================== */
+
+        function createStars() {
+
+            const container =
+                document.getElementById(
+                    'stars-container'
+                );
+
+            const numStars = 100;
+
+            for (
+                let i = 0;
+                i < numStars;
+                i++
+            ) {
+
+                const star =
+                    document.createElement(
+                        'div'
+                    );
+
+                star.classList.add(
+                    'star'
+                );
+
+                const size =
+                    Math.random() * 3 + 1;
+
+                const posX =
+                    Math.random() * 100;
+
+                const posY =
+                    Math.random() * 100;
+
+                const delay =
+                    Math.random() * 5;
+
+                const duration =
+                    Math.random() * 3 + 2;
+
+
+                star.style.width =
+                    `${size}px`;
+
+                star.style.height =
+                    `${size}px`;
+
+                star.style.left =
+                    `${posX}vw`;
+
+                star.style.top =
+                    `${posY}vh`;
+
+                star.style.animationDelay =
+                    `${delay}s`;
+
+                star.style.animationDuration =
+                    `${duration}s`;
+
+
+                container.appendChild(
+                    star
+                );
+            }
+        }
+
+
+        /* =====================================================
+           CORAZONES FLOTANTES
+        ===================================================== */
+
+        function createHearts() {
+
+            const container =
+                document.getElementById(
+                    'hearts-container'
+                );
+
+            const heartSymbols = [
+                '♥',
+                '♡',
+                '✧',
+                '✦'
+            ];
+
+
+            setInterval(() => {
+
+                const heart =
+                    document.createElement(
+                        'div'
+                    );
+
+                heart.classList.add(
+                    'heart-float'
+                );
+
+                heart.innerText =
+                    heartSymbols[
+                        Math.floor(
+                            Math.random() *
+                            heartSymbols.length
+                        )
+                    ];
+
+
+                const posX =
+                    Math.random() * 100;
+
+                const duration =
+                    Math.random() * 10 + 15;
+
+                const fontSize =
+                    Math.random() * 15 + 10;
+
+
+                heart.style.left =
+                    `${posX}vw`;
+
+                heart.style.animationDuration =
+                    `${duration}s`;
+
+                heart.style.fontSize =
+                    `${fontSize}px`;
+
+
+                container.appendChild(
+                    heart
+                );
+
+
+                setTimeout(() => {
+
+                    heart.remove();
+
+                }, duration * 1000);
+
+
+            }, 1000);
+        }
+
+
+        /* =====================================================
+           EXPLOSIÓN DE CORAZONES
+        ===================================================== */
+
+        function createLoveBurst(
+            petal
+        ) {
+
+            const rect =
+                petal.getBoundingClientRect();
+
+
+            const centerX =
+                rect.left +
+                rect.width / 2;
+
+            const centerY =
+                rect.top +
+                rect.height / 2;
+
+
+            for (
+                let i = 0;
+                i < 8;
+                i++
+            ) {
+
+                const heart =
+                    document.createElement(
+                        'div'
+                    );
+
+                heart.className =
+                    'love-burst';
+
+                heart.innerText =
+                    '❤️';
+
+
+                heart.style.left =
+                    `${centerX}px`;
+
+                heart.style.top =
+                    `${centerY}px`;
+
+
+                const angle =
+                    (Math.PI * 2 / 8) * i;
+
+                const distance =
+                    40 + Math.random() * 40;
+
+
+                heart.style.setProperty(
+                    '--x',
+                    `${Math.cos(angle) * distance}px`
+                );
+
+                heart.style.setProperty(
+                    '--y',
+                    `${Math.sin(angle) * distance}px`
+                );
+
+
+                document.body.appendChild(
+                    heart
+                );
+
+
+                setTimeout(() => {
+
+                    heart.remove();
+
+                }, 1000);
+            }
+        }
+
+
+        /* =====================================================
+           PÉTALOS
+        ===================================================== */
+
+        petals.forEach(
+            petal => {
+
+                petal.addEventListener(
+                    'click',
+                    () => {
+
+                        const index =
+                            parseInt(
+                                petal.dataset.index
+                            );
+
+
+                        /*
+                         * Mostrar el poema
+                         * correspondiente
+                         */
+
+                        poemText.innerText =
+                            poems[index];
+
+
+                        /*
+                         * Reiniciar animación
+                         */
+
+                        poemText.classList.remove(
+                            'poem-animation'
+                        );
+
+                        void poemText.offsetWidth;
+
+                        poemText.classList.add(
+                            'poem-animation'
+                        );
+
+
+                        /*
+                         * Abrir modal
+                         */
+
+                        modal.classList.add(
+                            'active'
+                        );
+
+
+                        /*
+                         * Marcar pétalo
+                         */
+
+                        if (
+                            !discoveredPetals.has(
+                                index
+                            )
+                        ) {
+
+                            discoveredPetals.add(
+                                index
+                            );
+
+                            petal.classList.add(
+                                'discovered'
+                            );
+
+
+                            /*
+                             * Actualizar contador
+                             */
+
+                            counter.innerText =
+                                discoveredPetals.size;
+
+
+                            /*
+                             * Crear corazones
+                             */
+
+                            createLoveBurst(
+                                petal
+                            );
+
+
+                            /*
+                             * ¿Descubrió todos?
+                             */
+
+                            if (
+                                discoveredPetals.size ===
+                                poems.length
+                            ) {
+
+                                setTimeout(
+                                    () => {
+
+                                        closeModal();
+
+                                        setTimeout(
+                                            () => {
+
+                                                finalMessage.classList.add(
+                                                    'active'
+                                                );
+
+                                            },
+                                            600
+                                        );
+
+                                    },
+                                    1800
+                                );
+                            }
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           CERRAR MODAL
+        ===================================================== */
+
+        function closeModal() {
+
+            modal.classList.remove(
+                'active'
+            );
+        }
+
+
+        /* =====================================================
+           CERRAR AL TOCAR FUERA
+        ===================================================== */
+
+        modal.addEventListener(
+            'click',
+            event => {
+
+                if (
+                    event.target === modal
+                ) {
+
+                    closeModal();
+                }
+            }
+        );
+
+
+        /* =====================================================
+           CERRAR MENSAJE FINAL
+        ===================================================== */
+
+        function closeFinalMessage() {
+
+            finalMessage.classList.remove(
+                'active'
+            );
+        }
+
+
+        /* =====================================================
+           ESCAPE PARA CERRAR
+        ===================================================== */
+
+        document.addEventListener(
+            'keydown',
+            event => {
+
+                if (
+                    event.key === 'Escape'
+                ) {
+
+                    closeModal();
+
+                    closeFinalMessage();
+                }
+            }
+        );
+
+
+        /* =====================================================
+           INICIALIZAR
+        ===================================================== */
+
+        window.addEventListener(
+            'load',
+            () => {
+
+                createStars();
+
+                createHearts();
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
